@@ -15,8 +15,8 @@ enum class Test {
     DOESNT_WORK_3
 }
 
-val test = Test.WORKS
-//val test = Test.DOESNT_WORK_1
+//val test = Test.WORKS
+val test = Test.DOESNT_WORK_1
 //val test = Test.DOESNT_WORK_2
 //val test = Test.DOESNT_WORK_3
 

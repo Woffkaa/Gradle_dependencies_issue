@@ -7,8 +7,8 @@ buildscript {
     }
 
     dependencies {
-        val test = 0 //WORKS
-//        val test = 1 //DOESNT_WORK1
+//        val test = 0 //WORKS
+        val test = 1 //DOESNT_WORK1
 //        val test = 2 //DOESNT_WORK2
 //        val test = 3 //DOESNT_WORK3
         when (test) {
