@@ -3,7 +3,6 @@ plugins {
 }
 
 repositories {
-    gradlePluginPortal()
     google()
     mavenCentral()
 }
@@ -24,32 +23,27 @@ dependencies {
     when (test) {
         Test.WORKS -> {
             implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
-            implementation("com.example:greeting:SNAPSHOT")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
         }
         Test.DOESNT_WORK_1 -> {
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
             implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
             implementation("com.squareup.sqldelight:gradle-plugin:1.5.1") {
 //                or
-                exclude(group = "org.jetbrains.kotlin")
+//                exclude(group = "org.jetbrains.kotlin")
 //                or
-//                isTransitive = false
+                isTransitive = false
             }
-            implementation("com.example:greeting:SNAPSHOT")
         }
         Test.DOESNT_WORK_2 -> {
             /*EMPTY*/
         }
         Test.DOESNT_WORK_3 -> {
             implementation("com.squareup.sqldelight:gradle-plugin:1.5.1") {
-                exclude(group = "org.jetbrains.kotlin")
 //                or
-//                isTransitive = false
+//                exclude(group = "org.jetbrains.kotlin")
 //                or
-//                exclude(group = "org.jetbrains.kotlin", module = "kotlin-gradle-plugin")
-//                exclude(group = "org.jetbrains.kotlin", module = "kotlin-stdlib-jdk8")
-//                but not (need both stdlib and plugin)
-//                exclude(group = "org.jetbrains.kotlin", module = "kotlin-gradle-plugin")
+                isTransitive = false
             }
         }
     }

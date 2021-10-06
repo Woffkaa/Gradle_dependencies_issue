@@ -1,7 +1,9 @@
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.runBlocking
 
 buildscript {
     repositories {
-        gradlePluginPortal()
         google()
         mavenCentral()
     }
@@ -28,27 +30,29 @@ buildscript {
                 /*EMPTY*/
             }
             2 -> {
-                classpath("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
                 classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
-                classpath("com.squareup.sqldelight:gradle-plugin:1.5.1")
-                classpath("com.example:greeting:SNAPSHOT")
+                classpath("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+                classpath("com.squareup.sqldelight:gradle-plugin:1.5.1") {
+//                    or
+//                    exclude(group = "org.jetbrains.kotlin")
+//                    or
+                    isTransitive = false
+                }
             }
             3 -> {
-                classpath("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
                 classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
-                classpath("com.squareup.sqldelight:gradle-plugin:1.5.1")
-                classpath("com.example:greeting:SNAPSHOT")
+                classpath("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
             }
         }
     }
 }
 
-allprojects {
-    repositories {
-        gradlePluginPortal()
-        google()
-        mavenCentral()
+tasks.register("crashMe") {
+    doLast {
+        runBlocking {
+            (0..5)
+                .map { index -> async { index } }
+                .awaitAll()
+        }
     }
 }
-
-apply(plugin = "com.example.greeting")
